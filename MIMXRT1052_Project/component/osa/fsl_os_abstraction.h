@@ -444,9 +444,9 @@ void OSA_ExitCritical(uint32_t sr);
  *   OSA_Init();
  * @endcode
  */
-#if (defined(FSL_OSA_TASK_ENABLE) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if (defined(FSL_OSA_TASK_ENABLE) && (FSL_OSA_TASK_ENABLE > 0U))
 void OSA_Init(void);
-#endif
+//#endif
 
 /*!
  * @brief Start OSA schedule.
@@ -458,9 +458,9 @@ void OSA_Init(void);
  *   OSA_Start();
  * @endcode
  */
-#if (defined(FSL_OSA_TASK_ENABLE) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if (defined(FSL_OSA_TASK_ENABLE) && (FSL_OSA_TASK_ENABLE > 0U))
 void OSA_Start(void);
-#endif
+//#endif
 
 /*!
  * @brief Creates a task.
@@ -486,20 +486,20 @@ void OSA_Start(void);
  * @retval KOSA_StatusSuccess The task is successfully created.
  * @retval KOSA_StatusError   The task can not be created.
  */
-#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
 osa_status_t OSA_TaskCreate(osa_task_handle_t taskHandle,
                             const osa_task_def_t *thread_def,
                             osa_task_param_t task_param);
-#endif /* FSL_OSA_TASK_ENABLE */
+//#endif /* FSL_OSA_TASK_ENABLE */
 
 /*!
  * @brief Gets the handler of active task.
  *
  * @return Handler to current active task.
  */
-#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
 osa_task_handle_t OSA_TaskGetCurrentHandle(void);
-#endif /* FSL_OSA_TASK_ENABLE */
+//#endif /* FSL_OSA_TASK_ENABLE */
 
 /*!
  * @brief Puts the active task to the end of scheduler's queue.
@@ -510,9 +510,9 @@ osa_task_handle_t OSA_TaskGetCurrentHandle(void);
  * @retval KOSA_StatusSuccess The function is called successfully.
  * @retval KOSA_StatusError   Error occurs with this function.
  */
-#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
 osa_status_t OSA_TaskYield(void);
-#endif /* FSL_OSA_TASK_ENABLE */
+//#endif /* FSL_OSA_TASK_ENABLE */
 
 /*!
  * @brief Gets the priority of a task.
@@ -521,9 +521,9 @@ osa_status_t OSA_TaskYield(void);
  *
  * @return Task's priority.
  */
-#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
 osa_task_priority_t OSA_TaskGetPriority(osa_task_handle_t taskHandle);
-#endif /* FSL_OSA_TASK_ENABLE */
+//#endif /* FSL_OSA_TASK_ENABLE */
 
 /*!
  * @brief Sets the priority of a task.
@@ -534,9 +534,9 @@ osa_task_priority_t OSA_TaskGetPriority(osa_task_handle_t taskHandle);
  * @retval KOSA_StatusSuccess Task's priority is set successfully.
  * @retval KOSA_StatusError   Task's priority can not be set.
  */
-#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
 osa_status_t OSA_TaskSetPriority(osa_task_handle_t taskHandle, osa_task_priority_t taskPriority);
-#endif /* FSL_OSA_TASK_ENABLE */
+//#endif /* FSL_OSA_TASK_ENABLE */
 
 /*!
  * @brief Destroys a previously created task.
@@ -546,9 +546,9 @@ osa_status_t OSA_TaskSetPriority(osa_task_handle_t taskHandle, osa_task_priority
  * @retval KOSA_StatusSuccess The task was successfully destroyed.
  * @retval KOSA_StatusError   Task destruction failed or invalid parameter.
  */
-#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
+//#if ((defined(FSL_OSA_TASK_ENABLE)) && (FSL_OSA_TASK_ENABLE > 0U))
 osa_status_t OSA_TaskDestroy(osa_task_handle_t taskHandle);
-#endif /* FSL_OSA_TASK_ENABLE */
+//#endif /* FSL_OSA_TASK_ENABLE */
 
 /*!
  * @brief Creates a semaphore with a given value.

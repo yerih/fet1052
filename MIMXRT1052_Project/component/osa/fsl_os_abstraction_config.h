@@ -24,7 +24,7 @@
 /*! @brief Definition to determine whether enable OSA's TASK module. */
 #ifndef OSA_USED
 #ifndef FSL_OSA_TASK_ENABLE
-#define FSL_OSA_TASK_ENABLE 0U
+#define FSL_OSA_TASK_ENABLE 1U
 #endif
 #else
 #if defined(FSL_OSA_TASK_ENABLE)

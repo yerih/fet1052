@@ -104,8 +104,8 @@ extern void DefaultISR(void);
 /*!
  * @brief To provide unified task piority for upper layer, OSA layer makes conversion.
  */
-//#define PRIORITY_OSA_TO_RTOS(osa_prio)  ((UBaseType_t)configMAX_PRIORITIES - (osa_prio)-2U)
-//#define PRIORITY_RTOS_TO_OSA(rtos_prio) ((UBaseType_t)configMAX_PRIORITIES - (rtos_prio)-2U)
+#define PRIORITY_OSA_TO_RTOS(osa_prio)  ((UBaseType_t)configMAX_PRIORITIES - (osa_prio)-2U)
+#define PRIORITY_RTOS_TO_OSA(rtos_prio) ((UBaseType_t)configMAX_PRIORITIES - (rtos_prio)-2U)
 
 /* @}*/
 
@@ -124,7 +124,7 @@ extern void DefaultISR(void);
 #define MSG_QUEUE_DECLARE(name, number, size) msg_queue_t *name = NULL
 
 /* @}*/
-
+osa_status_t OSA_TaskCreate(osa_task_handle_t taskHandle, const osa_task_def_t *thread_def, osa_task_param_t task_param);
 /*! @}*/
 /*! @}*/
 /*! @}*/

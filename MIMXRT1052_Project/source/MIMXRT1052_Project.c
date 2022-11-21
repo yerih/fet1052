@@ -41,6 +41,7 @@
 #include "fsl_debug_console.h"
 #include "ff.h"
 #include "fsl_sd.h"
+#include "fsl_os_abstraction.h"
 
 /* TODO: insert other include files here. */
 extern sd_card_t g_sd; /* sd card descriptor */
@@ -51,6 +52,16 @@ void delay()
 {
 	for(int i = 0; i < 4000000; i++)
 		__asm volatile ("nop");
+}
+
+void threadStart()
+{
+	printf("thread start\r\n");
+
+//	OSA_TaskCreate(taskHandle, thread_def, task_param)
+//	osa_task_handle_t handle;
+//	osa_task_handle_t* handle = OSA_TaskGetCurrentHandle();
+	printf("handler is null? %d \r\n", OSA_TaskGetCurrentHandle() == NULL);
 }
 /*
  * @brief   Application entry point.
@@ -74,9 +85,10 @@ int main(void) {
 //    printf("file open. result = %d\r\n", file != NULL);
 //    int r = f_mount(&FATFS_System_0, "0:", 1);
 
-    int r = f_open(&fp, "test.txt", FA_WRITE);
-    printf("file open. result = %d\r\n", r);
+//    int r = f_open(&fp, "test.txt", FA_WRITE);
+//    printf("file open. result = %d\r\n", r);
 //    f_close(&fp);
+    threadStart();
 
     /* Force the counter to be placed into memory. */
     int i = 0 ;

@@ -148,6 +148,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/template/usdhc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/host}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/osa}&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.files.550224343" name="Include files (-include)" superClass="gnu.c.compiler.option.include.files" useByScannerDiscovery="false"/>
 								<option id="com.crt.advproject.gcc.exe.debug.option.optimization.level.1583953644" name="Optimization Level" superClass="com.crt.advproject.gcc.exe.debug.option.optimization.level" useByScannerDiscovery="true"/>
@@ -225,7 +226,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/template/usdhc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/host}&quot;"/>
 								</option>
 								<option id="gnu.both.asm.option.warnings.nowarn.1053686694" name="Suppress warnings (-W)" superClass="gnu.both.asm.option.warnings.nowarn"/>
 								<option id="gnu.both.asm.option.version.1185125634" name="Announce version (-v)" superClass="gnu.both.asm.option.version"/>
@@ -522,6 +522,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/template/usdhc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/host}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/osa}&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.files.2054347333" name="Include files (-include)" superClass="gnu.c.compiler.option.include.files" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.optimization.flags.1929126963" name="Other optimization flags" superClass="gnu.c.compiler.option.optimization.flags" useByScannerDiscovery="false" value="-fno-common" valueType="string"/>
@@ -597,7 +598,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/template/usdhc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/sdmmc/host}&quot;"/>
 								</option>
 								<option id="gnu.both.asm.option.warnings.nowarn.918900114" name="Suppress warnings (-W)" superClass="gnu.both.asm.option.warnings.nowarn"/>
 								<option id="gnu.both.asm.option.version.1331116547" name="Announce version (-v)" superClass="gnu.both.asm.option.version"/>
@@ -770,7 +770,7 @@
 	<storageModule moduleId="com.nxp.mcuxpresso.core.datamodels">
 		<sdkName>SDK_2.x_EVKB-IMXRT1050</sdkName>
 		<sdkVersion>2.12.0</sdkVersion>
-		<sdkComponents>middleware.freertos-kernel.MIMXRT1052;platform.drivers.clock.MIMXRT1052;platform.drivers.igpio.MIMXRT1052;platform.drivers.lpuart.MIMXRT1052;platform.drivers.nic301.MIMXRT1052;platform.drivers.common.MIMXRT1052;platform.drivers.iomuxc.MIMXRT1052;platform.drivers.semc.MIMXRT1052;platform.drivers.cache_armv7_m7.MIMXRT1052;platform.drivers.usdhc.MIMXRT1052;CMSIS_Include_core_cm.MIMXRT1052;device.MIMXRT1052_system.MIMXRT1052;device.MIMXRT1052_CMSIS.MIMXRT1052;platform.utilities.assert.MIMXRT1052;component.serial_manager_uart.MIMXRT1052;component.lpuart_adapter.MIMXRT1052;component.serial_manager.MIMXRT1052;utility.debug_console.MIMXRT1052;middleware.fatfs.sd.MIMXRT1052;middleware.fatfs.MIMXRT1052;middleware.sdmmc.common.MIMXRT1052;middleware.fatfs.ram.MIMXRT1052;component.lists.MIMXRT1052;component.osa_bm.MIMXRT1052;project_template.MIMXRT1052.MIMXRT1052;middleware.fatfs.template_sd.MIMXRT1052;middleware.fatfs.template_ram.MIMXRT1052;middleware.sdmmc.usdhc.template.MIMXRT1052;device.MIMXRT1052_startup.MIMXRT1052;middleware.sdmmc.sdio.MIMXRT1052;middleware.sdmmc.sd.MIMXRT1052;middleware.sdmmc.host.usdhc.MIMXRT1052;middleware.sdmmc.osa.bm.MIMXRT1052;middleware.sdmmc.host.usdhc.interrupt.MIMXRT1052;middleware.sdmmc.host.usdhc.freertos.MIMXRT1052;middleware.sdmmc.osa.freertos.MIMXRT1052;component.osa_free_rtos.MIMXRT1052;middleware.freertos-kernel.template.MIMXRT1052;middleware.freertos-kernel.extension.MIMXRT1052;</sdkComponents>
+		<sdkComponents>middleware.freertos-kernel.MIMXRT1052;platform.drivers.clock.MIMXRT1052;platform.drivers.igpio.MIMXRT1052;platform.drivers.lpuart.MIMXRT1052;platform.drivers.nic301.MIMXRT1052;platform.drivers.common.MIMXRT1052;platform.drivers.iomuxc.MIMXRT1052;platform.drivers.semc.MIMXRT1052;platform.drivers.cache_armv7_m7.MIMXRT1052;platform.drivers.usdhc.MIMXRT1052;CMSIS_Include_core_cm.MIMXRT1052;device.MIMXRT1052_system.MIMXRT1052;device.MIMXRT1052_CMSIS.MIMXRT1052;platform.utilities.assert.MIMXRT1052;component.serial_manager_uart.MIMXRT1052;component.lpuart_adapter.MIMXRT1052;component.serial_manager.MIMXRT1052;utility.debug_console.MIMXRT1052;middleware.fatfs.sd.MIMXRT1052;middleware.fatfs.MIMXRT1052;middleware.sdmmc.common.MIMXRT1052;middleware.fatfs.ram.MIMXRT1052;component.lists.MIMXRT1052;component.osa_bm.MIMXRT1052;project_template.MIMXRT1052.MIMXRT1052;middleware.fatfs.template_sd.MIMXRT1052;middleware.fatfs.template_ram.MIMXRT1052;middleware.sdmmc.usdhc.template.MIMXRT1052;device.MIMXRT1052_startup.MIMXRT1052;middleware.sdmmc.sdio.MIMXRT1052;middleware.sdmmc.sd.MIMXRT1052;middleware.sdmmc.host.usdhc.interrupt.MIMXRT1052;middleware.sdmmc.host.usdhc.MIMXRT1052;middleware.freertos-kernel.template.MIMXRT1052;middleware.freertos-kernel.extension.MIMXRT1052;middleware.sdmmc.osa.bm.MIMXRT1052;middleware.sdmmc.osa.freertos.MIMXRT1052;component.osa_free_rtos.MIMXRT1052;</sdkComponents>
 		<package>MIMXRT1052CVL5B</package>
 		<core>cm7</core>
 		<coreId>core0_MIMXRT1052xxxxB</coreId>

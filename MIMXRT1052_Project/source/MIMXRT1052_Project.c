@@ -40,8 +40,10 @@
 #include "MIMXRT1052.h"
 #include "fsl_debug_console.h"
 #include "ff.h"
+#include "fsl_sd.h"
 
 /* TODO: insert other include files here. */
+extern sd_card_t g_sd; /* sd card descriptor */
 extern FATFS FATFS_System_0;
 FIL fp;
 /* TODO: insert other definitions and declarations here. */
@@ -66,11 +68,13 @@ int main(void) {
 #endif
 
     PRINTF("Hello World\r\n");
+
+
 //    FILE* file = fopen("test.txt", "rw");
 //    printf("file open. result = %d\r\n", file != NULL);
-    int r = f_mount(&FATFS_System_0, "0:", 1);
+//    int r = f_mount(&FATFS_System_0, "0:", 1);
 
-//    r = f_open(&fp, "test.txt", FA_WRITE);
+    int r = f_open(&fp, "test.txt", FA_WRITE);
     printf("file open. result = %d\r\n", r);
 //    f_close(&fp);
 

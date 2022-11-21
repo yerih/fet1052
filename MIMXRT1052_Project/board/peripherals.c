@@ -209,7 +209,7 @@ instance:
 - name: 'FATFS'
 - type: 'fatfs'
 - mode: 'general'
-- custom_name_enabled: 'false'
+- custom_name_enabled: 'true'
 - type_id: 'fatfs_2f85acf758668258920f70258052a088'
 - functional_group: 'BOARD_InitPeripherals'
 - config_sets:
@@ -228,7 +228,12 @@ instance:
         - initFunctionID: 'FATFS_DiskInit'
       - initResultObject: 'false'
       - resultName: 'FATFS_Result'
-      - fatfsObjects: []
+      - fatfsObjects:
+        - 0:
+          - objID: 'FATFS_System_0'
+          - diskMount: 'true'
+          - mountPath: '0:'
+          - mountInitOpt: 'true'
       - filObjects: []
       - filInfoObjects: []
       - dirObjects: []
@@ -254,12 +259,12 @@ instance:
       - FF_LFN_BUF: 'LFNID'
       - FF_SFN_BUF: 'SFNID'
       - FF_LFN_UNICODE: 'UTF8'
-      - FF_STRF_ENCODE: 'UTF8'
+      - FF_STRF_ENCODE: 'UTF16LE'
       - FF_CODE_PAGE: 'cpUS'
       - FF_FS_RPATH: 'enableRP2'
     - driveConfig:
       - FF_VOLUMES: '1'
-      - FF_STR_VOLUME_ID: 'numericId'
+      - FF_STR_VOLUME_ID: 'stingIdUnix'
       - volumes:
         - 0:
           - volumeStr: 'SD'
@@ -286,10 +291,13 @@ instance:
     - fatfs_codegenerator: []
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
+/* FATFS System object */
+FATFS FATFS_System_0;
 
-/* Empty initialization function (commented out)
 static void FATFS_init(void) {
-} */
+  /* FATFS Filesystem work area initialization */
+  (void) f_mount(&FATFS_System_0, (const TCHAR*)"0:", 1);
+}
 
 /***********************************************************************************************************************
  * Initialization functions
@@ -298,6 +306,7 @@ void BOARD_InitPeripherals(void)
 {
   /* Initialize components */
   SEMC_init();
+  FATFS_init();
 }
 
 /***********************************************************************************************************************

@@ -31,6 +31,8 @@ extern "C" {
  **********************************************************************************************************************/
 extern semc_config_t SEMC_config;
 extern semc_sdram_config_t SEMC_sdram_struct;
+/* FATFS System object */
+extern FATFS FATFS_System_0;
 
 /***********************************************************************************************************************
  * Initialization functions

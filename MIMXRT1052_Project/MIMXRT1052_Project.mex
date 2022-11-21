@@ -122,13 +122,13 @@
                   <pin peripheral="SEMC" signal="semc_ras" pin_num="D2" pin_signal="GPIO_EMC_25"/>
                   <pin peripheral="SEMC" signal="semc_rdy" pin_num="A7" pin_signal="GPIO_EMC_40"/>
                   <pin peripheral="SEMC" signal="semc_we" pin_num="D1" pin_signal="GPIO_EMC_28"/>
+                  <pin peripheral="USDHC1" signal="usdhc_cd_b" pin_num="D13" pin_signal="GPIO_B1_12"/>
                   <pin peripheral="GPIO1" signal="gpio_io, 09" pin_num="F14" pin_signal="GPIO_AD_B0_09">
                      <pin_features>
                         <pin_feature name="direction" value="OUTPUT"/>
                         <pin_feature name="slew_rate" value="Fast"/>
                      </pin_features>
                   </pin>
-                  <pin peripheral="USDHC1" signal="usdhc_cd_b" pin_num="D13" pin_signal="GPIO_B1_12"/>
                </pins>
             </function>
          </functions_list>
@@ -229,9 +229,16 @@
       <dcdx name="DCDx" version="3.0" enabled="false" update_project_code="true">
          <generated_project_files/>
          <dcdx_profile>
-            <processor_version>N/A</processor_version>
+            <processor_version>12.0.1</processor_version>
+            <output_format>c_array</output_format>
          </dcdx_profile>
-         <dcdx_configurations/>
+         <dcdx_configurations>
+            <dcdx_configuration name="Device_configuration">
+               <description></description>
+               <options/>
+               <command_groups/>
+            </dcdx_configuration>
+         </dcdx_configurations>
       </dcdx>
       <periphs name="Peripherals" version="11.0" enabled="true" update_project_code="true">
          <dependencies>
@@ -344,7 +351,7 @@
                         <array name="sdramArray"/>
                      </config_set>
                   </instance>
-                  <instance name="FATFS" uuid="3bd80590-e27e-4887-b8dc-332d3469ce8f" type="fatfs" type_id="fatfs_2f85acf758668258920f70258052a088" mode="general" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                  <instance name="FATFS" uuid="1d7be516-ab74-40aa-a802-98e194bfbd32" type="fatfs" type_id="fatfs_2f85acf758668258920f70258052a088" mode="general" enabled="true" comment="" custom_name_enabled="true" editing_lock="false">
                      <config_set name="init_config">
                         <struct name="initConfig">
                            <setting name="initPartitionsStr" value="false"/>
@@ -364,7 +371,14 @@
                            </struct>
                            <setting name="initResultObject" value="false"/>
                            <setting name="resultName" value="FATFS_Result"/>
-                           <array name="fatfsObjects"/>
+                           <array name="fatfsObjects">
+                              <struct name="0">
+                                 <setting name="objID" value="FATFS_System_0"/>
+                                 <setting name="diskMount" value="true"/>
+                                 <setting name="mountPath" value="0:"/>
+                                 <setting name="mountInitOpt" value="true"/>
+                              </struct>
+                           </array>
                            <array name="filObjects"/>
                            <array name="filInfoObjects"/>
                            <array name="dirObjects"/>
@@ -393,13 +407,13 @@
                            <setting name="FF_LFN_BUF" value="LFNID"/>
                            <setting name="FF_SFN_BUF" value="SFNID"/>
                            <setting name="FF_LFN_UNICODE" value="UTF8"/>
-                           <setting name="FF_STRF_ENCODE" value="UTF8"/>
+                           <setting name="FF_STRF_ENCODE" value="UTF16LE"/>
                            <setting name="FF_CODE_PAGE" value="cpUS"/>
                            <setting name="FF_FS_RPATH" value="enableRP2"/>
                         </struct>
                         <struct name="driveConfig">
                            <setting name="FF_VOLUMES" value="1"/>
-                           <setting name="FF_STR_VOLUME_ID" value="numericId"/>
+                           <setting name="FF_STR_VOLUME_ID" value="stingIdUnix"/>
                            <array name="volumes">
                               <struct name="0">
                                  <setting name="volumeStr" value="SD"/>

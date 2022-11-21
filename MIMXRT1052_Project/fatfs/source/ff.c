@@ -1128,7 +1128,7 @@ static LBA_t clst2sect (	/* !=0:Sector number, 0:Failed (invalid cluster#) */
 /* FAT access - Read value of an FAT entry                               */
 /*-----------------------------------------------------------------------*/
 
-static DWORD get_fattime(		/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluster status */
+static DWORD get_fat (		/* 0xFFFFFFFF:Disk error, 1:Internal error, 2..0x7FFFFFFF:Cluster status */
 	FFOBJID* obj,	/* Corresponding object */
 	DWORD clst		/* Cluster number to get the value */
 )
@@ -1422,7 +1422,7 @@ static FRESULT remove_chain (	/* FR_OK(0):succeeded, !=0:error */
 
 	/* Remove the chain */
 	do {
-		nxt = get_fattime(obj, clst);			/* Get cluster status */
+		nxt = get_fat(obj, clst);			/* Get cluster status */
 		if (nxt == 0) break;				/* Empty cluster? */
 		if (nxt == 1) return FR_INT_ERR;	/* Internal error? */
 		if (nxt == 0xFFFFFFFF) return FR_DISK_ERR;	/* Disk error? */
@@ -1464,7 +1464,7 @@ static FRESULT remove_chain (	/* FR_OK(0):succeeded, !=0:error */
 			if (obj->stat == 0) {	/* Is it a fragmented chain from the beginning of this session? */
 				clst = obj->sclust;		/* Follow the chain to check if it gets contiguous */
 				while (clst != pclst) {
-					nxt = get_fattime(obj, clst);
+					nxt = get_fat(obj, clst);
 					if (nxt < 2) return FR_INT_ERR;
 					if (nxt == 0xFFFFFFFF) return FR_DISK_ERR;
 					if (nxt != clst + 1) break;	/* Not contiguous? */
@@ -1506,7 +1506,7 @@ static DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:D
 		if (scl == 0 || scl >= fs->n_fatent) scl = 1;
 	}
 	else {				/* Stretch a chain */
-		cs = get_fattime(obj, clst);			/* Check the cluster status */
+		cs = get_fat(obj, clst);			/* Check the cluster status */
 		if (cs < 2) return 1;				/* Test for insanity */
 		if (cs == 0xFFFFFFFF) return cs;	/* Test for disk error */
 		if (cs < fs->n_fatent) return cs;	/* It is already followed by next cluster */
@@ -1545,7 +1545,7 @@ static DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:D
 		if (scl == clst) {						/* Stretching an existing chain? */
 			ncl = scl + 1;						/* Test if next cluster is free */
 			if (ncl >= fs->n_fatent) ncl = 2;
-			cs = get_fattime(obj, ncl);				/* Get next cluster status */
+			cs = get_fat(obj, ncl);				/* Get next cluster status */
 			if (cs == 1 || cs == 0xFFFFFFFF) return cs;	/* Test for error */
 			if (cs != 0) {						/* Not free? */
 				cs = fs->last_clst;				/* Start at suggested cluster if it is valid */
@@ -1561,7 +1561,7 @@ static DWORD create_chain (	/* 0:No free cluster, 1:Internal error, 0xFFFFFFFF:D
 					ncl = 2;
 					if (ncl > scl) return 0;	/* No free cluster found? */
 				}
-				cs = get_fattime(obj, ncl);			/* Get the cluster status */
+				cs = get_fat(obj, ncl);			/* Get the cluster status */
 				if (cs == 0) break;				/* Found a free cluster? */
 				if (cs == 1 || cs == 0xFFFFFFFF) return cs;	/* Test for error */
 				if (ncl == scl) return 0;		/* No free cluster found? */
@@ -1689,7 +1689,7 @@ static FRESULT dir_sdi (	/* FR_OK(0):succeeded, !=0:error */
 	} else {			/* Dynamic table (sub-directory or root-directory on the FAT32/exFAT volume) */
 		csz = (DWORD)fs->csize * SS(fs);	/* Bytes per cluster */
 		while (ofs >= csz) {				/* Follow cluster chain */
-			clst = get_fattime(&dp->obj, clst);				/* Get next cluster */
+			clst = get_fat(&dp->obj, clst);				/* Get next cluster */
 			if (clst == 0xFFFFFFFF) return FR_DISK_ERR;	/* Disk error */
 			if (clst < 2 || clst >= fs->n_fatent) return FR_INT_ERR;	/* Reached to end of table or internal error */
 			ofs -= csz;
@@ -1734,7 +1734,7 @@ static FRESULT dir_next (	/* FR_OK(0):succeeded, FR_NO_FILE:End of table, FR_DEN
 		}
 		else {					/* Dynamic table */
 			if ((ofs / SS(fs) & (fs->csize - 1)) == 0) {	/* Cluster changed? */
-				clst = get_fattime(&dp->obj, dp->clust);		/* Get next cluster */
+				clst = get_fat(&dp->obj, dp->clust);		/* Get next cluster */
 				if (clst <= 1) return FR_INT_ERR;			/* Internal error */
 				if (clst == 0xFFFFFFFF) return FR_DISK_ERR;	/* Disk error */
 				if (clst >= fs->n_fatent) {					/* It reached end of dynamic table */
@@ -3809,7 +3809,7 @@ FRESULT f_open (
 				bcs = (DWORD)fs->csize * SS(fs);	/* Cluster size in byte */
 				clst = fp->obj.sclust;				/* Follow the cluster chain */
 				for (ofs = fp->obj.objsize; res == FR_OK && ofs > bcs; ofs -= bcs) {
-					clst = get_fattime(&fp->obj, clst);
+					clst = get_fat(&fp->obj, clst);
 					if (clst <= 1) res = FR_INT_ERR;
 					if (clst == 0xFFFFFFFF) res = FR_DISK_ERR;
 				}
@@ -3883,7 +3883,7 @@ FRESULT f_read (
 					} else
 #endif
 					{
-						clst = get_fattime(&fp->obj, fp->clust);	/* Follow cluster chain on the FAT */
+						clst = get_fat(&fp->obj, fp->clust);	/* Follow cluster chain on the FAT */
 					}
 				}
 				if (clst < 2) ABORT(fs, FR_INT_ERR);
@@ -4401,7 +4401,7 @@ FRESULT f_lseek (
 					tcl = cl; ncl = 0; ulen += 2;	/* Top, length and used items */
 					do {
 						pcl = cl; ncl++;
-						cl = get_fattime(&fp->obj, cl);
+						cl = get_fat(&fp->obj, cl);
 						if (cl <= 1) ABORT(fs, FR_INT_ERR);
 						if (cl == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
 					} while (cl == pcl + 1);
@@ -4486,7 +4486,7 @@ FRESULT f_lseek (
 					} else
 #endif
 					{
-						clst = get_fattime(&fp->obj, clst);	/* Follow cluster chain if not in write mode */
+						clst = get_fat(&fp->obj, clst);	/* Follow cluster chain if not in write mode */
 					}
 					if (clst == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
 					if (clst <= 1 || clst >= fs->n_fatent) ABORT(fs, FR_INT_ERR);
@@ -4774,7 +4774,7 @@ FRESULT f_getfree (
 			if (fs->fs_type == FS_FAT12) {	/* FAT12: Scan bit field FAT entries */
 				clst = 2; obj.fs = fs;
 				do {
-					stat = get_fattime(&obj, clst);
+					stat = get_fat(&obj, clst);
 					if (stat == 0xFFFFFFFF) { res = FR_DISK_ERR; break; }
 					if (stat == 1) { res = FR_INT_ERR; break; }
 					if (stat == 0) nfree++;
@@ -4857,7 +4857,7 @@ FRESULT f_truncate (
 			res = remove_chain(&fp->obj, fp->obj.sclust, 0);
 			fp->obj.sclust = 0;
 		} else {				/* When truncate a part of the file, remove remaining clusters */
-			ncl = get_fattime(&fp->obj, fp->clust);
+			ncl = get_fat(&fp->obj, fp->clust);
 			res = FR_OK;
 			if (ncl == 0xFFFFFFFF) res = FR_DISK_ERR;
 			if (ncl == 1) res = FR_INT_ERR;
@@ -5528,7 +5528,7 @@ FRESULT f_expand (
 	{
 		scl = clst = stcl; ncl = 0;
 		for (;;) {	/* Find a contiguous cluster block */
-			n = get_fattime(&fp->obj, clst);
+			n = get_fat(&fp->obj, clst);
 			if (++clst >= fs->n_fatent) clst = 2;
 			if (n == 1) { res = FR_INT_ERR; break; }
 			if (n == 0xFFFFFFFF) { res = FR_DISK_ERR; break; }
@@ -5607,7 +5607,7 @@ FRESULT f_forward (
 		if (fp->fptr % SS(fs) == 0) {				/* On the sector boundary? */
 			if (csect == 0) {						/* On the cluster boundary? */
 				clst = (fp->fptr == 0) ?			/* On the top of the file? */
-					fp->obj.sclust : get_fattime(&fp->obj, fp->clust);
+					fp->obj.sclust : get_fat(&fp->obj, fp->clust);
 				if (clst <= 1) ABORT(fs, FR_INT_ERR);
 				if (clst == 0xFFFFFFFF) ABORT(fs, FR_DISK_ERR);
 				fp->clust = clst;					/* Update current cluster */

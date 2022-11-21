@@ -36,6 +36,11 @@
 			<locationURI>SDK_2_x_EVKB_IMXRT1050/middleware/sdmmc/sd/ChangeLogKSDK.txt</locationURI>
 		</link>
 		<link>
+			<name>sdmmc/sdio/ChangeLogKSDK.txt</name>
+			<type>1</type>
+			<locationURI>SDK_2_x_EVKB_IMXRT1050/middleware/sdmmc/sdio/ChangeLogKSDK.txt</locationURI>
+		</link>
+		<link>
 			<name>freertos/freertos_kernel/include/stdint.readme</name>
 			<type>1</type>
 			<locationURI>SDK_2_x_EVKB_IMXRT1050/rtos/freertos/freertos_kernel/include/stdint.readme</locationURI>

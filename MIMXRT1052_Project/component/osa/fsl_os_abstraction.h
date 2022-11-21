@@ -368,7 +368,7 @@ typedef enum _osa_status
 #define OSA_TASK_HANDLE_DEFINE(name) uint32_t name[(OSA_TASK_HANDLE_SIZE + sizeof(uint32_t) - 1U) / sizeof(uint32_t)]
 
 #if defined(SDK_OS_FREE_RTOS)
-//#include "fsl_os_abstraction_free_rtos.h"
+#include "fsl_os_abstraction_free_rtos.h"
 #elif defined(FSL_RTOS_THREADX)
 #include "fsl_os_abstraction_threadx.h"
 #else

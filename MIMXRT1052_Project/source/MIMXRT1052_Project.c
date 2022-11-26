@@ -41,24 +41,36 @@
 #include "fsl_debug_console.h"
 #include "ff.h"
 #include "FreeRTOS.h"
-#include "FreeRTOSConfig.h"
-#include "fsl_sd.h"
-#include "fsl_os_abstraction.h"
+//#include "FreeRTOSConfig.h"
+#include "fsl_sd_disk.h"
+//#include "fsl_os_abstraction.h"
+#include "sdmmc_config.h"
 
 /* TODO: insert other include files here. */
-extern sd_card_t g_sd; /* sd card descriptor */
+//extern sd_card_t g_sd; /* sd card descriptor */
 extern FATFS FATFS_System_0;
 FIL fp;
+
 /* TODO: insert other definitions and declarations here. */
 void delay()
 {
 	for(int i = 0; i < 4000000; i++)
 		__asm volatile ("nop");
 }
-
+void sd_detectedCallback(bool isInserted, void* userData)
+{
+	printf("sd is inserted ? %d\r\n", isInserted);
+}
 void th_start()
 {
 	printf("thread function invoked\r\n");
+
+	BOARD_SD_Config(&g_sd, sd_detectedCallback, BOARD_SDMMC_SD_HOST_IRQ, NULL);
+	int r = SD_HostInit(&g_sd);
+	printf("sd_init: %d\r\n", r);
+//	r = f_open(&fp, "test.txt", FA_WRITE);
+	printf("fmount: %d\r\n", r);
+	printf("fopen: %d\r\n", r);
 
     int i = 0 ;
     while(1) {
@@ -75,6 +87,11 @@ void threadStart()
 {
 	printf("creating thread\r\n");
 
+
+	int r = f_mount(&FATFS_System_0, "0:", 1);
+	printf("fmount = %d\r\n", r);
+	r = f_open(&fp, "test.txt", FA_WRITE);
+	printf("fopen = %d\r\n", r);
 	xTaskCreate(th_start, "threadStart", configMINIMAL_STACK_SIZE+100, NULL, configMAX_PRIORITIES, NULL);
 	printf("thread created \r\n", 555);
 	vTaskStartScheduler();
@@ -95,6 +112,7 @@ int main(void) {
     /* Init FSL debug console. */
     BOARD_InitDebugConsole();
 #endif
+
 
     PRINTF("Hello World\r\n");
 

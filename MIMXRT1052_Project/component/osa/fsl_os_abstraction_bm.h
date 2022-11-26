@@ -84,8 +84,8 @@ uint8_t OSA_TaskShouldYield(void);
 /*!
  * @brief To provide unified priority for upper layer, OSA layer makes conversation.
  */
-#define PRIORITY_OSA_TO_RTOS(osa_prio)  (osa_prio)
-#define PRIORITY_RTOS_TO_OSA(rtos_prio) (rtos_prio)
+//#define PRIORITY_OSA_TO_RTOS(osa_prio)  (osa_prio)
+//#define PRIORITY_RTOS_TO_OSA(rtos_prio) (rtos_prio)
 
 /*! @}*/
 /*! @}*/

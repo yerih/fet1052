@@ -80,7 +80,7 @@ void BOARD_InitBootClocks(void);
 #define BOARD_BOOTCLOCKRUN_UART_CLK_ROOT              4000000UL
 #define BOARD_BOOTCLOCKRUN_USBPHY1_CLK                0UL
 #define BOARD_BOOTCLOCKRUN_USBPHY2_CLK                0UL
-#define BOARD_BOOTCLOCKRUN_USDHC1_CLK_ROOT            12000000UL
+#define BOARD_BOOTCLOCKRUN_USDHC1_CLK_ROOT            24000000UL
 #define BOARD_BOOTCLOCKRUN_USDHC2_CLK_ROOT            12000000UL
 
 /*! @brief Arm PLL set for BOARD_BootClockRUN configuration.

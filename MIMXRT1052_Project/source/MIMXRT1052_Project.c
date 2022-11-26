@@ -40,6 +40,8 @@
 #include "MIMXRT1052.h"
 #include "fsl_debug_console.h"
 #include "ff.h"
+#include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
 #include "fsl_sd.h"
 #include "fsl_os_abstraction.h"
 
@@ -54,15 +56,31 @@ void delay()
 		__asm volatile ("nop");
 }
 
+void th_start()
+{
+	printf("thread function invoked\r\n");
+
+    int i = 0 ;
+    while(1) {
+        i++ ;
+        GPIO_WritePinOutput(BOARD_INITPINS_LED_F14_GPIO, BOARD_INITPINS_LED_F14_GPIO_PIN, 1);
+        delay();
+
+        GPIO_WritePinOutput(BOARD_INITPINS_LED_F14_GPIO, BOARD_INITPINS_LED_F14_GPIO_PIN, 0);
+        delay();
+    }
+}
+
 void threadStart()
 {
-	printf("thread start\r\n");
+	printf("creating thread\r\n");
 
-//	OSA_TaskCreate(taskHandle, thread_def, task_param)
-//	osa_task_handle_t handle;
-//	osa_task_handle_t* handle = OSA_TaskGetCurrentHandle();
-	printf("handler is null? %d \r\n", OSA_TaskGetCurrentHandle() == NULL);
+	xTaskCreate(th_start, "threadStart", configMINIMAL_STACK_SIZE+100, NULL, configMAX_PRIORITIES, NULL);
+	printf("thread created \r\n", 555);
+	vTaskStartScheduler();
+	printf("start scheduler\r\n", 555);
 }
+
 /*
  * @brief   Application entry point.
  */
